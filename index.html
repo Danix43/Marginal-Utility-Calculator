@@ -3,9 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="script.js"></script>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles.css" />
     <title>Marginal Utility Calculator</title>
   </head>
-  <body></body>
+
+  <body>
+    <h1>Marginal Utility Calculator</h1>
+    <h4>Enter any values to complete the formula</h4>
+
+    <form id="form">
+      <label>
+        <input id="initialUt" name="initialUt" />
+        Initial Utility
+      </label>
+
+      <label>
+        <input type="text" id="finalUt" name="finalUt" />
+        Final Utility
+      </label>
+
+      <label>
+        <input type="text" id="initialQConsumed" name="initialQConsumed" />
+        Initial Quantity Consumed
+      </label>
+
+      <label>
+        <input type="text" id="finalQConsumed" name="finalQConsumed" />
+        Final Quantity Consumed
+      </label>
+
+      <label>
+        <input type="text" id="marUt" name="marUt" />
+        Marginal Utility
+      </label>
+
+      <label>
+        <input id="start" type="submit" />
+        Calculate
+      </label>
+
+      <label>
+        <input id="reset" type="button" />
+        Reset
+      </label>
+    </form>
+
+    <script src="script.js"></script>
+  </body>
 </html>
