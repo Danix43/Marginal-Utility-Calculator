@@ -1,6 +1,7 @@
 const form = document.querySelector("#form");
 
 const resetButton = document.querySelector("#reset");
+console.log(resetButton);
 
 const processData = async function () {
   const formData = new FormData(form);
@@ -116,6 +117,16 @@ form.addEventListener("submit", (e) => {
   processData();
 });
 
-resetButton.addEventListener("onClick", e => {
-  console.log("clicked reset");
+resetButton.addEventListener("click", e => {
+  const initialUtilInput = document.querySelector("#initialUt");
+  const finalUtilInput = document.querySelector("#finalUt");
+  const initialQInput = document.querySelector("#initialQConsumed");
+  const finalQInput = document.querySelector("#finalQConsumed");
+  const marUtilInput = document.querySelector("#marUt");
+
+  initialUtilInput.value = "";
+  finalUtilInput.value = "";
+  initialQInput.value = "";
+  finalQInput.value = "";
+  marUtilInput.value = "";
 })
