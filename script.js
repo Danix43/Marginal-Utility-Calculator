@@ -1,7 +1,31 @@
 const form = document.querySelector("#form");
 
 const resetButton = document.querySelector("#reset");
-console.log(resetButton);
+
+const sampleDataButton = document.querySelector("#addSampleData");
+
+const initialUtilInput = document.querySelector("#initialUt");
+const finalUtilInput = document.querySelector("#finalUt");
+const initialQInput = document.querySelector("#initialQConsumed");
+const finalQInput = document.querySelector("#finalQConsumed");
+const marUtilInput = document.querySelector("#marUt");
+
+
+resetButton.addEventListener("click", e => {
+	initialUtilInput.value = "";
+	finalUtilInput.value = "";
+	initialQInput.value = "";
+	finalQInput.value = "";
+	marUtilInput.value = "";
+})
+
+sampleDataButton.addEventListener("click", e => {
+	initialUtilInput.value = "5";
+	finalUtilInput.value = "10";
+	initialQInput.value = "6";
+	finalQInput.value = "10";
+	marUtilInput.value = "1.25";
+})
 
 const processData = async function () {
 	const formData = new FormData(form);
@@ -115,17 +139,3 @@ form.addEventListener("submit", (e) => {
 	e.preventDefault();
 	processData();
 });
-
-resetButton.addEventListener("click", e => {
-	const initialUtilInput = document.querySelector("#initialUt");
-	const finalUtilInput = document.querySelector("#finalUt");
-	const initialQInput = document.querySelector("#initialQConsumed");
-	const finalQInput = document.querySelector("#finalQConsumed");
-	const marUtilInput = document.querySelector("#marUt");
-
-	initialUtilInput.value = "";
-	finalUtilInput.value = "";
-	initialQInput.value = "";
-	finalQInput.value = "";
-	marUtilInput.value = "";
-})
