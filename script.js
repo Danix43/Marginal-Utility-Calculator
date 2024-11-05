@@ -31,15 +31,15 @@ const processData = async function () {
 	const formData = new FormData(form);
 	const [initialUtil, finalUtil, initialQ, finalQ, marUtil] = formData.values();
 
+	console.log(`data from form: \n initialUtil: ${initialUtil} \n finalUtil: ${finalUtil} \n initialQ: ${initialQ}\n finalQ: ${finalQ} \n marUtil: ${marUtil}`);
+
 	if (initialUtil && finalUtil && initialQ && finalQ && marUtil) alert("all the fields are populated, remove one");
 
 	if (!initialUtil && (marUtil, finalUtil, initialQ, finalQ)) alert("empty initial Util")
 
 	if (!finalUtil && (initialUtil, finalUtil, initialQ, finalQ)) alert("empty final Util")
 
-	if (!initialQ && (marUtil, finalUtil, initialUtil, finalQ)) alert(`initialQ: ${await calcInitialQ(
-		initialQ, finalUtil, finalQ, marUtil
-	)}`)
+	if (!initialQ && (marUtil, finalUtil, initialUtil, finalQ)) alert(`initialQ: ${await calcInitialQ(finalUtil, initialUtil, finalQ, marUtil)}`)
 
 	if (!finalQ && (marUtil, finalUtil, initialQ, initialUtil)) alert(`finalQ: ${await calcFinalQ(
 		initialUtil, finalUtil, initialQ, marUtil
@@ -89,26 +89,20 @@ const calcFinalUtil = async function (
 }
 
 const calcInitialQ = async function (
-	initialUtil,
 	finalUtil,
+	initialUtil,
 	finalQ,
 	marUtil
 ) {
-	const deltaUtil = finalUtil - initialUtil;
+	const deltaUtil = initialUtil - finalUtil
 
-	// 5 = marUtil * (x - initialQ)
-	// deltaUtil = marUtil * (x - initialQ)
+	let x1 = marUtil // 1.25
+	let x2 = finalQ * marUtil // 12.5
 
-	// marUtil - (marUtil * initialQ)
-	let x1 = marUtil * finalQ;
-
-	// marUtil = deltaUtil + x1
-	x1 = deltaUtil + x1; // 7,5
-
-	x1 = x1 * 100;
-	let x2 = marUtil * 100;
-
-	return x1 / x2;
+	let x3 = x2 + deltaUtil
+	x3 = x3 * 100
+	x1 = x1 * 100
+	return x3 / x1;
 }
 
 const calcFinalQ = async function (
