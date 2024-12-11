@@ -43,22 +43,80 @@ const processData = async function () {
 
 	// works
 	if (!initialUtil && (marUtil, finalUtil, initialQ, finalQ)) {
-		alert(`initialUtil: ${await calcInitialUtil(finalUtil, initialQ, finalQ, marUtil)}`)
+		const results = await calcInitialUtil(finalUtil, initialQ, finalQ, marUtil);
+
+		const preExp = createElement("p", `Steps: `);
+		const exp1 = createElement("p", `1. First we get the delta quantity by subtrating the initial quantity from the final one: ${results[0]}`);
+		const resultText = createElement("p", `2. The initial utility is the result from subtracting the product between the marginal utility and delta quantity by the final utility: ${results[1]}`);
+
+		addElementsToBox([preExp, exp1, resultText], "result-exp");
+
+		initialUtilInput.value = results[1];
 	}
 
 	// works
 	if (!finalUtil && (marUtil, initialUtil, initialQ, finalQ)) {
-		alert(`finalUtil: ${await calcFinalUtil(initialUtil, initialQ, finalQ, marUtil)}`)
+		const results = await calcFinalUtil(initialUtil, initialQ, finalQ, marUtil);
+
+		const preExp = createElement("p", `Steps: `);
+		const exp1 = createElement("p", `1. First we get the delta quantity by subtrating the initial quantity from the final one: ${results[0]}`);
+		const resultText = createElement("p", `2. The final utility is the result from subtracting the product between the marginal utility and delta quantity by the initial utility: ${results[1]}`);
+
+		addElementsToBox([preExp, exp1, resultText], "result-exp");
+
+		finalUtilInput.value = results[1];
 	}
 
 	// works
 	if (!initialQ && (marUtil, finalUtil, initialUtil, finalQ)) {
-		alert(`initialQ: ${await calcInitialQ(finalUtil, initialUtil, finalQ, marUtil)}`)
+		const results = await calcInitialQ(finalUtil, initialUtil, finalQ, marUtil);
+
+		const preExp = createElement("p", `Steps: `);
+		const exp1 = createElement("p",
+			`1. Calculate the delta utility by subtracting the initial utility from the final one: ${results[0]}`
+		)
+		const exp2 = createElement("p",
+			`2. Multiply the final quantity by the marginal utility: ${results[1]}`
+		)
+		const exp3 = createElement("p",
+			`3. Add to the previous product the delta utility`
+		)
+		const exp4 = createElement("p",
+			`4. Raise both results to 100`
+		)
+		const exp5 = createElement("p",
+			`5. Divide the last one to the first to get the initial quantity: ${results[4]}`
+		)
+
+		addElementsToBox([preExp, exp1, exp2, exp3, exp4, exp5], "result-exp");
+
+		initialQInput.value = results[4];
 	}
 
 	// works
 	if (!finalQ && (marUtil, finalUtil, initialQ, initialUtil)) {
-		alert(`finalQ: ${await calcFinalQ(initialUtil, finalUtil, initialQ, marUtil)}`)
+		const results = await calcFinalQ(initialUtil, finalUtil, initialQ, marUtil);
+
+		const preExp = createElement("p", `Steps: `);
+		const exp1 = createElement("p",
+			`1. Calculate the delta utility by subtracting the initial utility from the final one: ${results[0]}`
+		)
+		const exp2 = createElement("p",
+			`2. Multiply the initial quantity by the marginal utility: ${results[1]}`
+		)
+		const exp3 = createElement("p",
+			`3. Add to the previous product the delta utility`
+		)
+		const exp4 = createElement("p",
+			`4. Raise both results to 100`
+		)
+		const exp5 = createElement("p",
+			`5. Divide the last one to the first to get the final quantity: ${results[3]}`
+		)
+
+		addElementsToBox([preExp, exp1, exp2, exp3, exp4, exp5], "result-exp");
+
+		finalQInput.value = results[3];
 	}
 
 	// works
@@ -70,20 +128,12 @@ const processData = async function () {
 			finalQ
 		);
 
-
 		const preExp = createElement("p", `Steps: `);
 		const exp1 = createElement("p", `1. First we get the delta quantity by subtrating the initial quantity from the final one: ${results[0]}`);
 		const exp2 = createElement("p", `2. Then we get the delta utility by subtrating the initial utility from the final one: ${results[1]}`);
 		const resultText = createElement("p", `3. The marginal util is the result of dividing the delta utility from the delta quantity: ${results[2]}`);
 
-		const documentFragment = document.createDocumentFragment();
-		documentFragment.appendChild(preExp);
-		documentFragment.appendChild(exp1);
-		documentFragment.appendChild(exp2);
-		documentFragment.appendChild(resultText);
-		const resultsBox = document.getElementsByClassName("result-exp")[0];
-		resultsBox.classList.remove("hide");
-		resultsBox.appendChild(documentFragment);
+		addElementsToBox([preExp, exp1, exp2, resultText], "result-exp");
 
 		marUtilInput.value = results[2];
 	}
@@ -110,7 +160,7 @@ const calcInitialUtil = async function (
 ) {
 	const deltaQ = finalQ - initialQ;
 
-	return finalUtil - (marUtil * deltaQ);
+	return [deltaQ, (finalUtil - (marUtil * deltaQ))];
 }
 
 const calcFinalUtil = async function (
@@ -121,7 +171,7 @@ const calcFinalUtil = async function (
 ) {
 	const deltaQ = initialQ - finalQ; // -4
 
-	return initialUtil - (marUtil * deltaQ);
+	return [deltaQ, (initialUtil - (marUtil * deltaQ))];
 }
 
 const calcInitialQ = async function (
@@ -138,7 +188,7 @@ const calcInitialQ = async function (
 	let x3 = x2 + deltaUtil
 	x3 = x3 * 100
 	x1 = x1 * 100
-	return x3 / x1;
+	return [deltaUtil, x2, x3, x1, (x3 / x1)];
 }
 
 const calcFinalQ = async function (
@@ -162,7 +212,7 @@ const calcFinalQ = async function (
 	x1 = x1 * 100;
 	let x2 = marUtil * 100;
 
-	return x1 / x2;
+	return [deltaUtil, x2, x1, (x1 / x2)];
 }
 
 const createElement = (elmType, elmText, elmClasses = "") => {
@@ -172,4 +222,15 @@ const createElement = (elmType, elmText, elmClasses = "") => {
 	newElm.classList = elmClasses;
 
 	return newElm;
+}
+
+const addElementsToBox = (elms, targetBoxClassName) => {
+	const documentFragment = document.createDocumentFragment();
+
+	for (const elm of elms) {
+		documentFragment.appendChild(elm);
+	}
+	const resultsBox = document.getElementsByClassName(targetBoxClassName)[0];
+	resultsBox.classList.remove("hide");
+	resultsBox.appendChild(documentFragment);
 }
