@@ -1,53 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
-    <title>Marginal Utility Calculator</title>
-  </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="styles.css" />
+		<title>Marginal Utility Calculator</title>
+	</head>
 
-  <body>
-    <h1>Marginal Utility Calculator</h1>
-    <h4>Enter any values to complete the formula</h4>
+	<body>
+		<h1 class="title">Marginal Utility Calculator</h1>
+		<h4 class="subtitle">Enter any values to complete the formula</h4>
 
-    <form id="form">
-      <label>
-        <input id="initialUt" name="initialUt" />
-        Initial Utility
-      </label>
+		<form id="form">
+			<label>
+				<input id="initialUt" name="initialUt" />
+				Initial Utility
+			</label>
 
-      <label>
-        <input type="text" id="finalUt" name="finalUt" />
-        Final Utility
-      </label>
+			<label>
+				<input type="text" id="finalUt" name="finalUt" />
+				Final Utility
+			</label>
 
-      <label>
-        <input type="text" id="initialQConsumed" name="initialQConsumed" />
-        Initial Quantity Consumed
-      </label>
+			<label>
+				<input
+					type="text"
+					id="initialQConsumed"
+					name="initialQConsumed"
+				/>
+				Initial Quantity Consumed
+			</label>
 
-      <label>
-        <input type="text" id="finalQConsumed" name="finalQConsumed" />
-        Final Quantity Consumed
-      </label>
+			<label>
+				<input type="text" id="finalQConsumed" name="finalQConsumed" />
+				Final Quantity Consumed
+			</label>
 
-      <label>
-        <input type="text" id="marUt" name="marUt" />
-        Marginal Utility
-      </label>
+			<label>
+				<input type="text" id="marUt" name="marUt" />
+				Marginal Utility
+			</label>
 
-      <label>
-        <input id="start" type="submit" title="Calculate" value="Calculate" />
-      </label>
-    </form>
+			<button
+				id="start"
+				type="submit"
+				title="Calculate"
+				value="Calculate"
+			>
+				Calculate
+			</button>
 
-    <button id="reset" type="button" title="Reset" value="Reset">Reset</button>
+			<button id="reset" type="button" title="Reset" value="Reset">
+				Reset
+			</button>
 
-    <button id="addSampleData" type="button" title="Reset" value="Reset">
-      Add sample data
-    </button>
+			<button
+				id="addSampleData"
+				type="button"
+				title="Reset"
+				value="Reset"
+			>
+				Add sample data
+			</button>
+		</form>
 
-    <script src="script.js"></script>
-  </body>
+		<div class="result-exp hide">
+			<p class="exp-1">test</p>
+		</div>
+
+		<script src="script.js"></script>
+	</body>
 </html>
