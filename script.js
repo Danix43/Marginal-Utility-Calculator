@@ -10,6 +10,10 @@ const initialQInput = document.querySelector("#initialQConsumed");
 const finalQInput = document.querySelector("#finalQConsumed");
 const marUtilInput = document.querySelector("#marUt");
 
+form.addEventListener("submit", (e) => {
+	e.preventDefault();
+	processData();
+});
 
 resetButton.addEventListener("click", e => {
 	initialUtilInput.value = "";
@@ -17,6 +21,8 @@ resetButton.addEventListener("click", e => {
 	initialQInput.value = "";
 	finalQInput.value = "";
 	marUtilInput.value = "";
+
+	location.reload();
 })
 
 sampleDataButton.addEventListener("click", e => {
@@ -57,14 +63,29 @@ const processData = async function () {
 
 	// works
 	if (!marUtil && (initialUtil, finalUtil, initialQ, finalQ)) {
-		alert(
-			`marginal util: ${await calcMarginalUtil(
-				initialUtil,
-				finalUtil,
-				initialQ,
-				finalQ
-			)}`
+		const results = await calcMarginalUtil(
+			initialUtil,
+			finalUtil,
+			initialQ,
+			finalQ
 		);
+
+
+		const preExp = createElement("p", `Steps: `);
+		const exp1 = createElement("p", `1. First we get the delta quantity by subtrating the initial quantity from the final one: ${results[0]}`);
+		const exp2 = createElement("p", `2. Then we get the delta utility by subtrating the initial utility from the final one: ${results[1]}`);
+		const resultText = createElement("p", `3. The marginal util is the result of dividing the delta utility from the delta quantity: ${results[2]}`);
+
+		const documentFragment = document.createDocumentFragment();
+		documentFragment.appendChild(preExp);
+		documentFragment.appendChild(exp1);
+		documentFragment.appendChild(exp2);
+		documentFragment.appendChild(resultText);
+		const resultsBox = document.getElementsByClassName("result-exp")[0];
+		resultsBox.classList.remove("hide");
+		resultsBox.appendChild(documentFragment);
+
+		marUtilInput.value = results[2];
 	}
 };
 
@@ -78,7 +99,7 @@ const calcMarginalUtil = async function (
 	const deltaQ = finalQ - initialQ;
 	const deltaUtil = finalUtil - initialUtil;
 
-	return deltaUtil / deltaQ;
+	return [deltaQ, deltaUtil, deltaUtil / deltaQ];
 };
 
 const calcInitialUtil = async function (
@@ -144,7 +165,11 @@ const calcFinalQ = async function (
 	return x1 / x2;
 }
 
-form.addEventListener("submit", (e) => {
-	e.preventDefault();
-	processData();
-});
+const createElement = (elmType, elmText, elmClasses = "") => {
+	const newElm = document.createElement(elmType);
+
+	newElm.textContent = elmText;
+	newElm.classList = elmClasses;
+
+	return newElm;
+}

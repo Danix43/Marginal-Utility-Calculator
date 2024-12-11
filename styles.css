@@ -3,6 +3,12 @@
 	src: url("./res/font/Roboto-Regular.ttf");
 }
 
+@font-face {
+	font-family: Roboto;
+	src: url("./res/font/Roboto-Bold.ttf");
+	font-weight: bold;
+}
+
 body {
 	font-family: "Roboto", Arial, Helvetica, sans-serif;
 	font-size: 1em;
@@ -15,15 +21,17 @@ body {
 }
 
 .title {
-	margin-top: 12rem;
-
 	padding: 1rem;
+
+	padding-left: 3rem;
+	padding-right: 3rem;
 
 	border: 1px solid black;
 	border-radius: 20px;
 	box-shadow: 6px 4px 5px 0px #000000;
 
 	font-size: 3em;
+	text-align: center;
 
 	background-color: #e9c46a;
 }
@@ -56,4 +64,17 @@ body {
 
 .hide {
 	display: none;
+}
+
+.result-exp {
+	background-color: #e9c46a;
+
+	border: 1px solid black;
+	border-radius: 20px;
+	box-shadow: 6px 4px 5px 0px #000000;
+
+	padding: 2rem;
+
+	font-weight: bold;
+	font-size: 1.2em;
 }
